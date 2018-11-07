@@ -1,5 +1,5 @@
 resource "openstack_compute_secgroup_v2" "gitlab" {
-  name        = "gitlab"
+  name        = "${var.prefix}gitlab"
   description = "Gitlab security group"
   region      = "${var.region}"
 
@@ -41,7 +41,7 @@ resource "openstack_compute_secgroup_v2" "gitlab" {
 }
 
 resource "openstack_compute_secgroup_v2" "runner" {
-  name        = "runner"
+  name        = "${var.prefix}runner"
   description = "Gitlab runner security group"
   region      = "${var.region}"
 

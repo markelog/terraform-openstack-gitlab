@@ -18,6 +18,11 @@ variable "auth_url" {
   description = "OpenStack authentication endpoint"
 }
 
+variable "prefix" {
+  description = "Prefix for entities (instances, security groups, etc)"
+  default = ""
+}
+
 variable "user_domain_name" {
   description = "OpenStack domain"
 }
@@ -29,6 +34,11 @@ variable "domain" {
 variable "region" {
   default     = "RegionOne"
   description = "OpenStack region"
+}
+
+variable "key_name" {
+  default     = "Admin SSH Public Key"
+  description = "Name for the key"
 }
 
 variable "ssh_key_file" {

@@ -20,7 +20,7 @@ data "template_file" "runner" {
   template = "${file("${path.module}/templates/runner.toml")}"
 
   vars {
-    name          = "gitlab-runner-${count.index+1}"
+    name          = "${var.prefix}gitlab-runner-${count.index+1}"
     concurrent    = "${var.runner_concurrent}"
     token         = "${local.token}"
     url           = "${local.host}"
@@ -28,7 +28,7 @@ data "template_file" "runner" {
 }
 
 resource "openstack_compute_instance_v2" "gitlab" {
-  name            = "gitlab"
+  name            = "${var.prefix}gitlab"
   region          = "${var.region}"
   image_name      = "${var.image}"
   flavor_name     = "${var.flavor}"
@@ -70,7 +70,7 @@ resource "openstack_compute_instance_v2" "gitlab" {
 }
 
 resource "openstack_compute_instance_v2" "runner" {
-  name            = "gitlab-runner-${count.index+1}"
+  name            = "${var.prefix}gitlab-runner-${count.index+1}"
   count           = "${var.num_runners}"
   region          = "${var.region}"
   image_name      = "${var.image}"

@@ -6,6 +6,6 @@ provider "openstack" {
   auth_url          = "${var.auth_url}"
   region            = "${var.region}"
   user_domain_name  = "${var.user_domain_name}"
-  
+
   insecure          = true
 }
