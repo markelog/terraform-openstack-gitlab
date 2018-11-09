@@ -95,6 +95,5 @@ variable "num_runners" {
 }
 
 variable "network" {
-  default     = "EXT_pf_dev"
   description = "Name of the external network for which we will create servers"
 }
