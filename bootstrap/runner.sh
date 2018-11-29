@@ -33,4 +33,6 @@ gitlab-runner register \
   --registration-token ${runner_token} \
   --name ${runner_name} \
   --executor docker \
+  --docker-volumes /var/run/docker.sock:/var/run/docker.sock \
+  --docker-privileged \
   --docker-image ${runner_image} 2>&1 >> /var/log/gitlab-runner.boostrap.log

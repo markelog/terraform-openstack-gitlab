@@ -3,7 +3,7 @@ resource "random_id" "token" {
 }
 
 locals {
-  token = "${format("%s", random_id.token.hex)}"
+  token = "VCmgGh5aTyzCckmeRsTL"
   host = "http://${openstack_compute_instance_v2.gitlab.name}.${var.tenant}.${var.domain}"
 }
 
@@ -13,17 +13,6 @@ data "template_file" "gitlab" {
   vars {
     root_password = "${var.root_password}"
     token = "${local.token}"
-  }
-}
-
-data "template_file" "runner" {
-  template = "${file("${path.module}/templates/runner.toml")}"
-
-  vars {
-    name          = "${var.prefix}gitlab-runner-${count.index+1}"
-    concurrent    = "${var.runner_concurrent}"
-    token         = "${local.token}"
-    url           = "${local.host}"
   }
 }
 
@@ -93,15 +82,8 @@ resource "openstack_compute_instance_v2" "runner" {
     destination = "/tmp/runner.sh"
   }
 
-  provisioner "file" {
-    content       = "${data.template_file.runner.rendered}"
-    destination   = "/tmp/runner.toml"
-  }
-
   provisioner "remote-exec" {
     inline = [
-      "sudo mv -f /tmp/runner.toml /etc/gitlab-runner/config.toml",
-
       "sudo chmod +x /tmp/runner.sh",
       "sudo /tmp/runner.sh ${self.name} ${local.host} ${local.token} ${var.runner_image} ${var.ssh_username}"
     ]

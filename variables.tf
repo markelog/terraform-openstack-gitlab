@@ -62,7 +62,7 @@ variable "flavor" {
 }
 
 variable "runner_flavor" {
-  default     = "w1.c4r4"
+  default     = "d1.c4r4"
   description = "OpenStack gitlab instance flavor"
 }
 
