@@ -40,7 +40,7 @@ resource "openstack_compute_instance_v2" "gitlab" {
   }
 
   provisioner "file" {
-    source      = "${var.config_file}"
+    source      = "${var.gitlab_config}"
     destination = "/tmp/gitlab.rb"
   }
 
@@ -56,6 +56,14 @@ resource "openstack_compute_instance_v2" "gitlab" {
       "sudo rm -rf /tmp/gitlab.sh"
     ]
   }
+}
+
+resource "openstack_blockstorage_volume_v2" "runner" {
+  name        = "${var.prefix}gitlab-${count.index+1}"
+  description = "Gitlab runner volume"
+  size        = "${var.volume_size}"
+  count       = "${var.num_runners}"
+  volume_type = "${var.volume_type}"
 }
 
 resource "openstack_compute_instance_v2" "runner" {
@@ -78,22 +86,61 @@ resource "openstack_compute_instance_v2" "runner" {
   }
 
   provisioner "file" {
-    source      = "${path.module}/bootstrap/runner.sh"
-    destination = "/tmp/runner.sh"
+    source      = "${path.module}/bootstrap/runner/setup.sh"
+    destination = "/tmp/gitlab-runner-setup.sh"
+  }
+
+  provisioner "file" {
+    source      = "${path.module}/bootstrap/runner/cleaner.sh"
+    destination = "/tmp/gitlab-runner-cleaner.sh"
+  }
+
+  provisioner "file" {
+    source      = "${var.docker_config}"
+    destination = "/tmp/daemon.json"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo chmod +x /tmp/runner.sh",
-      "sudo /tmp/runner.sh ${self.name} ${local.host} ${local.token} ${var.runner_image} ${var.ssh_username}"
+      "sudo chmod +x /tmp/gitlab-runner-cleaner.sh",
+      "sudo chmod +x /tmp/gitlab-runner-setup.sh",
+
+      "sudo mv /tmp/gitlab-runner-cleaner.sh /etc/cron.daily/",
+      "sudo mkdir -p /etc/docker/",
+      "sudo mv /tmp/daemon.json /etc/docker/",
+
+      "sudo /tmp/gitlab-runner-setup.sh ${self.name} ${local.host} ${local.token} ${var.runner_image} ${var.ssh_username}"
     ]
   }
 
   provisioner "remote-exec" {
     when = "destroy"
     inline = [
-      "sudo gitlab-runner unregister --name ${self.name}"
+      "sudo gitlab-runner unregister --name ${self.name}",
     ]
   }
 }
 
+resource "openstack_compute_volume_attach_v2" "runner" {
+  count       = "${var.num_runners}"
+  instance_id = "${element(openstack_compute_instance_v2.runner.*.id, count.index)}"
+  volume_id   = "${element(openstack_blockstorage_volume_v2.runner.*.id, count.index)}"
+}
+
+resource "null_resource" "runner" {
+  count       = "${var.num_runners}"
+  depends_on  = ["openstack_compute_volume_attach_v2.runner"]
+
+  provisioner "remote-exec" {
+    connection {
+      host        = "${element(openstack_compute_instance_v2.runner.*.access_ip_v4, count.index)}"
+      user        = "${var.ssh_username}"
+      private_key = "${file("${var.ssh_key_file}")}"
+    }
+
+    inline = [
+      "sudo mkfs.ext4 -F /dev/sdb",
+      "sudo mount /dev/sdb /mnt",
+    ]
+  }
+}

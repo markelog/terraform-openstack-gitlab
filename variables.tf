@@ -52,12 +52,16 @@ variable "image" {
 }
 
 variable "volume_size" {
-  default     = 10
+  default     = 20
   description = "Size of the volume where all GitLab data will be stored"
 }
 
+variable "volume_type" {
+  description = "Type of the volume"
+}
+
 variable "flavor" {
-  default     = "w1.c8r16"
+  default     = "d1.c16r32"
   description = "OpenStack gitlab instance flavor"
 }
 
@@ -71,18 +75,26 @@ variable "ssh_username" {
   description = "SSH username"
 }
 
-variable "config_file" {
+variable "gitlab_config" {
   description = "Configuration file to use for /etc/gitlab/gitlab.rb"
 }
 
+variable "docker_config" {
+  description = "Docker daemon config (see https://docs.docker.com/config/daemon/)"
+  default     = "bootstrap/runner/daemon.json"
+}
+
+
 variable "root_password" {
   description = "Root password for gitlab instance"
+  default     = "test"
 }
 
 variable "runner_image" {
   description = "The Docker image a gitlab CI runner will use by default"
   default     = "alpine:latest"
 }
+
 
 variable "runner_concurrent" {
   description = "How many jobs gitlab runner can run"
