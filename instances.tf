@@ -4,7 +4,7 @@ resource "random_id" "token" {
 
 locals {
   token = "${var.gitlab_token != "" ? var.gitlab_token : format("%s", random_id.token.hex)}"
-  host  = "http://${openstack_compute_instance_v2.gitlab.name}.${var.tenant}.${var.domain}"
+  host  = "${var.gitlab_host}"
 }
 
 data "template_file" "gitlab" {

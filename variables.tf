@@ -36,6 +36,15 @@ variable "region" {
   description = "OpenStack region"
 }
 
+variable "gitlab_host" {
+  description = "Address (with protocol) to gitlab main instance"
+}
+
+variable "gitlab_token" {
+  default     = ""
+  description = "Predefined token, otherwise it will be generated for you"
+}
+
 variable "key_name" {
   default     = "Admin SSH Public Key"
   description = "Name for the key"
