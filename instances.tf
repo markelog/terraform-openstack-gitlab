@@ -3,8 +3,8 @@ resource "random_id" "token" {
 }
 
 locals {
-  token = "VCmgGh5aTyzCckmeRsTL"
-  host = "http://${openstack_compute_instance_v2.gitlab.name}.${var.tenant}.${var.domain}"
+  token = "${var.gitlab_token != "" ? var.gitlab_token : format("%s", random_id.token.hex)}"
+  host  = "http://${openstack_compute_instance_v2.gitlab.name}.${var.tenant}.${var.domain}"
 }
 
 data "template_file" "gitlab" {
@@ -108,8 +108,6 @@ resource "openstack_compute_instance_v2" "runner" {
       "sudo mv /tmp/gitlab-runner-cleaner.sh /etc/cron.daily/",
       "sudo mkdir -p /etc/docker/",
       "sudo mv /tmp/daemon.json /etc/docker/",
-
-      "sudo /tmp/gitlab-runner-setup.sh ${self.name} ${local.host} ${local.token} ${var.runner_image} ${var.ssh_username}"
     ]
   }
 
@@ -141,6 +139,8 @@ resource "null_resource" "runner" {
     inline = [
       "sudo mkfs.ext4 -F /dev/sdb",
       "sudo mount /dev/sdb /mnt",
+
+      "sudo /tmp/gitlab-runner-setup.sh ${var.prefix}gitlab-runner-${count.index+1} ${local.host} ${local.token} ${var.runner_image} ${var.ssh_username}"
     ]
   }
 }
