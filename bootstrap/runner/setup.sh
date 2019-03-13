@@ -39,4 +39,5 @@ gitlab-runner register \
   --docker-volumes /var/run/docker.sock:/var/run/docker.sock \
   --docker-volumes /mnt/runner/cache \
   --docker-privileged \
+  --docker-pull-policy if-not-present \
   --docker-image ${runner_image} 2>&1 >> /var/log/gitlab-runner.boostrap.log
