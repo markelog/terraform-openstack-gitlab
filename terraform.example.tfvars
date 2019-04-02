@@ -29,9 +29,6 @@ ssh_key_file            = "/Users/killa/.ssh/id_rsa"
 
 #### GitLab ####
 
-# Name prefix
-prefix                  = ""
-
 # Address of the host
 gitlab_host             = "http://gitlab.killa-gorilla.com"
 
@@ -41,10 +38,10 @@ root_password           = "test"
 # Flavor of the openstack VM
 flavor                  = "w1.c8r16"
 
-# Size of the instance volume
+# Size of the runners volumes
 volume_size             = 50
 
-# Volume type
+# Type of the runners volumes
 volume_type             = "volumes-ceph-gold"
 
 # Amount of runners
