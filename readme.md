@@ -1,4 +1,4 @@
-# Set up Gtilab with terraform via OpenStack
+# Set up GtiLab with terraform via OpenStack
 
 ## Use case
 
