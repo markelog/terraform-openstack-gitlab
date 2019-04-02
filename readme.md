@@ -16,7 +16,7 @@ Prepere the template –
 $ terraform init
 ```
 
-Copy the example –
+Copy example config as config file for terraform –
 
 ```sh
 $ copy terraform.example.tfvars terraform.tfvars
