@@ -4,9 +4,7 @@
 
 If you orchestrate your VMs via OpenStack and want to quickly set up and maintain GitLab and runners for it.
 
-[Install terraform](https://learn.hashicorp.com/terraform/getting-started/install.html)
-
-Download the template –
+[Install terraform](https://learn.hashicorp.com/terraform/getting-started/install.html) and then download the template –
 ```sh
 $ git clone git@github.com:markelog/terraform-gitlab-openstack.git
 $ cd terraform-gitlab-openstack
