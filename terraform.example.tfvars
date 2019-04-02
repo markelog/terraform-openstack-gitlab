@@ -1,39 +1,3 @@
-# Set up Gtilab with terraform via OpenStack
-
-## Use case
-
-If you orchestrate your VMs via OpenStack and want to quickly set up and maintain GitLab and runners for it.
-
-[Install terraform](https://learn.hashicorp.com/terraform/getting-started/install.html)
-
-Download the template –
-```sh
-$ git clone git@github.com:markelog/terraform-gitlab-openstack.git
-$ cd terraform-gitlab-openstack
-```
-
-Prepere the template –
-
-```sh
-$ terraform init
-```
-
-Copy the example –
-
-```sh
-$ copy terraform.example.tfvars terraform.tfvars
-```
-
-Modify the options to your liking.
-
-Apply the template –
-
-```sh
-$ terraform apply
-```
-
-## Values
-```terraform
 #### OpenStack related values ####
 
 # Address to OpenStack API
@@ -96,10 +60,3 @@ docker_config           = "./configs/runner/daemon.json"
 s3_endpoint             = "https://s3.killa-gorilla.com"
 s3_access_key           = "ASDASDAQWQF51ASD"
 s3_secret_key           = "ASDA#Qqwdasd12!#@asdA@!SAD"
-```
-
-# Notes
-
-1. Tested on Ubuntu Bionic Beaver
-1. Uses docker executor on runners (see [configs](bootstrap) folder)
-1. Includes cron job for docker auto-cleaning on runners

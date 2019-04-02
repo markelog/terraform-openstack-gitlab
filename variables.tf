@@ -27,10 +27,6 @@ variable "user_domain_name" {
   description = "OpenStack domain"
 }
 
-variable "domain" {
-  description = "OpenStack domain"
-}
-
 variable "region" {
   default     = "RegionOne"
   description = "OpenStack region"
