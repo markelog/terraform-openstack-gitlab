@@ -90,7 +90,7 @@ variable "docker_config" {
 }
 
 
-variable "root_password" {
+variable "ui_password" {
   description = "Root password for gitlab instance"
   default     = "test"
 }

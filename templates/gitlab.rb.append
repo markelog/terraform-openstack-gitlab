@@ -1,4 +1,4 @@
 ## Templated items from Terraform, for generated values
 #### Change the initial default admin password and shared runner registraion tokens.
-gitlab_rails['initial_root_password'] = "${root_password}"
+gitlab_rails['initial_root_password'] = "${ui_password}"
 gitlab_rails['initial_shared_runners_registration_token'] = "${token}"

@@ -11,7 +11,7 @@ data "template_file" "gitlab" {
   template = "${file("${path.module}/templates/gitlab.rb.append")}"
 
   vars {
-    root_password = "${var.root_password}"
+    ui_password = "${var.ui_password}"
     token = "${local.token}"
   }
 }

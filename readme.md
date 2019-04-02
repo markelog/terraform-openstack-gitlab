@@ -67,7 +67,7 @@ ssh_key_file            = "/Users/killa/.ssh/id_rsa"
 gitlab_host             = "http://gitlab.killa-gorilla.com"
 
 # Password for GitLab UI
-root_password           = "test"
+ui_password           = "test"
 
 # Flavor of the openstack VM
 flavor                  = "w1.c8r16"
