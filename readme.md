@@ -35,7 +35,7 @@ $ terraform apply
 #### OpenStack related values ####
 
 # Address to OpenStack API
-auth_url                = "https://ds.tinkoff.cloud:5000/v3"
+auth_url                = "https://openstack.killa.cloud:5000/v3"
 
 # OpenStack User Domain Name (optional)
 user_domain_name        = "killa-gorilla.com"
@@ -44,10 +44,10 @@ user_domain_name        = "killa-gorilla.com"
 tenant                  = "pf-dev"
 
 # Tenant ID
-tenant_id               = "6238a6acffbf4bfbbfa3c784c3609564"
+tenant_id               = "623899a6acffbf4bfbbfa3c784c3609564"
 
 # Name of the network
-network                 = "EXT_pf_dev"
+network                 = "super-group"
 
 # OpenStack username
 user_name               = "killa"
@@ -66,7 +66,7 @@ ssh_key_file            = "/Users/killa/.ssh/id_rsa"
 # Address of the host
 gitlab_host             = "http://gitlab.killa-gorilla.com"
 
-# Password for GitLab UI
+# Password for GitLab UI (user is "root")
 ui_password           = "test"
 
 # Flavor of the openstack VM
