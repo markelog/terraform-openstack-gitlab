@@ -55,10 +55,10 @@ user_name               = "killa"
 # OpenStack password
 password                = "gorilla"
 
-# Name of the openstack instance
+# Name of the user in instances (including runners)
 ssh_username            = "killa"
 
-# Name of the openstack instance (it's not going to be copied anywhere)
+# Path to the ssh key (it's not going to be copied anywhere)
 ssh_key_file            = "/Users/killa/.ssh/id_rsa"
 
 #### GitLab ####
@@ -67,7 +67,7 @@ ssh_key_file            = "/Users/killa/.ssh/id_rsa"
 gitlab_host             = "http://gitlab.killa-gorilla.com"
 
 # Password for GitLab UI (user is "root")
-ui_password           = "test"
+ui_password           	= "test"
 
 # Flavor of the openstack VM
 flavor                  = "w1.c8r16"

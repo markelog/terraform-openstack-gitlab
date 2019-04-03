@@ -1,37 +1,3 @@
-# Set up GtiLab with terraform via OpenStack
-
-## Use case
-
-If you orchestrate your VMs via OpenStack and you want to quickly set up and maintain GitLab and runners for it.
-
-[Install terraform](https://learn.hashicorp.com/terraform/getting-started/install.html) and then download the template –
-```sh
-$ git clone git@github.com:markelog/terraform-gitlab-openstack.git
-$ cd terraform-gitlab-openstack
-```
-
-Prepere the template –
-
-```sh
-$ terraform init
-```
-
-Copy example as config file for terraform –
-
-```sh
-$ copy terraform.example.tfvars terraform.tfvars
-```
-
-Modify the options to your liking.
-
-Apply the template –
-
-```sh
-$ terraform apply
-```
-
-## Values
-```terraform
 #### OpenStack related values ####
 
 # Address to OpenStack API
@@ -55,10 +21,10 @@ user_name               = "killa"
 # OpenStack password
 password                = "gorilla"
 
-# Name of the openstack instance
+# Name of the user in instances (including runners)
 ssh_username            = "killa"
 
-# Name of the openstack instance (it's not going to be copied anywhere)
+# Path to the ssh key (it's not going to be copied anywhere)
 ssh_key_file            = "/Users/killa/.ssh/id_rsa"
 
 #### GitLab ####
@@ -67,7 +33,7 @@ ssh_key_file            = "/Users/killa/.ssh/id_rsa"
 gitlab_host             = "http://gitlab.killa-gorilla.com"
 
 # Password for GitLab UI (user is "root")
-ui_password           = "test"
+ui_password           	= "test"
 
 # Flavor of the openstack VM
 flavor                  = "w1.c8r16"
@@ -91,10 +57,3 @@ docker_config           = "./configs/runner/daemon.json"
 s3_endpoint             = "https://s3.killa-gorilla.com"
 s3_access_key           = "ASDASDAQWQF51ASD"
 s3_secret_key           = "ASDA#Qqwdasd12!#@asdA@!SAD"
-```
-
-# Notes
-
-1. Tested on Ubuntu Bionic Beaver
-1. Uses docker executor on runners (see [configs](bootstrap) folder)
-1. Includes cron job on runners for docker auto-cleaning
