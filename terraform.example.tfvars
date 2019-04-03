@@ -38,6 +38,9 @@ ui_password           	= "test"
 # Flavor of the openstack VM
 flavor                  = "w1.c8r16"
 
+# Name of the image
+image                   = "Ubuntu 18.04"
+
 # Size of the runners volumes
 volume_size             = 50
 
