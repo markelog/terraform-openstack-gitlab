@@ -41,7 +41,7 @@ auth_url                = "https://openstack.killa.cloud:5000/v3"
 user_domain_name        = "killa-gorilla.com"
 
 # Name of the tenant
-tenant                  = "pf-dev"
+tenant                  = "super-tenant"
 
 # Tenant ID
 tenant_id               = "623899a6acffbf4bfbbfa3c784c3609564"
