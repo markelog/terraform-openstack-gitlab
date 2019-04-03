@@ -2,7 +2,7 @@
 
 ## Use case
 
-If you orchestrate your VMs via OpenStack and want to quickly set up and maintain GitLab and runners for it.
+If you orchestrate your VMs via OpenStack and you want to quickly set up and maintain GitLab and runners for it.
 
 [Install terraform](https://learn.hashicorp.com/terraform/getting-started/install.html) and then download the template –
 ```sh
@@ -16,7 +16,7 @@ Prepere the template –
 $ terraform init
 ```
 
-Copy example config as config file for terraform –
+Copy example as config file for terraform –
 
 ```sh
 $ copy terraform.example.tfvars terraform.tfvars
@@ -97,4 +97,4 @@ s3_secret_key           = "ASDA#Qqwdasd12!#@asdA@!SAD"
 
 1. Tested on Ubuntu Bionic Beaver
 1. Uses docker executor on runners (see [configs](bootstrap) folder)
-1. Includes cron job for docker auto-cleaning on runners
+1. Includes cron job on runners for docker auto-cleaning
